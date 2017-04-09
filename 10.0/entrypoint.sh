@@ -23,6 +23,19 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
+mkdir -p "$ODOO"
+chown -R odoo "$ODOO"
+chmod 700 "$ODOO"
+
+mkdir -p "$CONFIG"
+chown -R odoo "$CONFIG"
+chmod 700 "$CONFIG"
+
+mkdir -p "$ADDON"
+chown -R odoo "$ADDON"
+chmod 700 "$ADDON"
+
+
 case "$1" in
     -- | odoo)
         shift

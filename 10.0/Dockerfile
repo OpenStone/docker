@@ -14,6 +14,10 @@ RUN mkdir -p /mnt/extra-addons \
 
 VOLUME ["/var/lib/odoo", "/etc/odoo", "/mnt/extra-addons"]
 
+ENV ODOO /var/lib/odoo
+ENV CONFIG /etc/odoo
+ENV ADDON /mnt/extra-addons
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
