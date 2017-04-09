@@ -48,6 +48,8 @@ COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
 
+VOLUME ["/var/lib/odoo", "/etc/odoo", "/mnt/extra-addons"]
+
 # Expose Odoo services
 EXPOSE 8069 8072
 
