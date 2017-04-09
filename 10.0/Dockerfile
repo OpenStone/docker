@@ -1,6 +1,9 @@
 FROM debian:jessie
 MAINTAINER Odoo S.A. <info@odoo.com>
 
+# explicitly set user/group IDs
+RUN groupadd -r odoo --gid=888 && useradd -r -g odoo --uid=888 odoo
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
