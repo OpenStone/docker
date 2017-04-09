@@ -4,6 +4,14 @@ MAINTAINER Odoo S.A. <info@odoo.com>
 # explicitly set user/group IDs
 RUN groupadd -r odoo --gid=888 && useradd -r -g odoo --uid=888 odoo
 
+# Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
+RUN mkdir -p /mnt/extra-addons \
+    && chown -R odoo /mnt/extra-addons ; \
+    test ! -d /var/lib/odoo && mkdir -p /var/lib/odoo ;\
+    chown -R odoo /var/lib/odoo;\
+    test ! -d /etc/odoo && mkdir -p /etc/odoo ;\
+    chown -R odoo /etc/odoo
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
@@ -40,15 +48,8 @@ COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
 
-# Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
-RUN mkdir -p /mnt/extra-addons \
-    && chown -R odoo /mnt/extra-addons ; \
-    test ! -d /var/lib/odoo && mkdir -p /var/lib/odoo ; \
-    chown -R odoo /var/lib/odoo
-VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
-
 # Expose Odoo services
-EXPOSE 8069 8071
+EXPOSE 8069 8072
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
