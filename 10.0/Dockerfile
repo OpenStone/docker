@@ -12,6 +12,8 @@ RUN mkdir -p /mnt/extra-addons \
     test ! -d /etc/odoo && mkdir -p /etc/odoo ;\
     chown -R odoo /etc/odoo
 
+VOLUME ["/var/lib/odoo", "/etc/odoo", "/mnt/extra-addons"]
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
         apt-get update \
@@ -47,8 +49,6 @@ RUN set -x; \
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chown odoo /etc/odoo/odoo.conf
-
-VOLUME ["/var/lib/odoo", "/etc/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
 EXPOSE 8069 8072
