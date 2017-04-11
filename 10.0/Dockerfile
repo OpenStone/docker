@@ -9,14 +9,24 @@ RUN mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons ; \
     test ! -d /var/lib/odoo && mkdir -p /var/lib/odoo ;\
     chown -R odoo /var/lib/odoo;\
-    test ! -d /etc/odoo && mkdir -p /etc/odoo ;\
-    chown -R odoo /etc/odoo
+    test ! -d /etc/odoo && mkdir -p /etc/odoo;\
+    chown -R odoo /etc/odoo;\
+    test ! -d /var/log/odoo && mkdir -p /var/log/odoo;\
+    chown -R odoo /var/log/odoo
 
-VOLUME ["/var/lib/odoo", "/etc/odoo", "/mnt/extra-addons"]
+VOLUME ["/var/lib/odoo", "/var/log/odoo", "/etc/odoo", "/mnt/extra-addons"]
 
-ENV ODOO /var/lib/odoo
-ENV CONFIG /etc/odoo
-ENV ADDON /mnt/extra-addons
+ENV ODOO_DATA_DIR /var/lib/odoo
+ENV ODOO_CONFIGURATION_DIR /etc/odoo
+ENV ODOO_CONFIGURATION_FILE /etc/odoo/odoo.conf
+ENV ODOO_EXTRA_ADDONS /mnt/extra-addons
+ENV ODOO_LOG_DIR /var/log/odoo
+
+# ODOO_CONFIGURATION_FILE=/etc/odoo/odoo.conf
+# ODOO_GROUP="odoo"
+# ODOO_DATA_DIR=/var/lib/odoo
+# ODOO_LOG_DIR=/var/log/odoo
+# ODOO_USER="odoo"
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN set -x; \
