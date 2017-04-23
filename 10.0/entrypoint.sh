@@ -51,9 +51,6 @@ if [ "$1" = 'odoo' ] && [ "$(id -u)" = '0' ]; then
 	chown -R odoo "$ODOO_LOG_DIR"
 	chmod 0750 "$ODOO_LOG_DIR"
 
-    exec service odoo restart
-    exec gosu odoo "$BASH_SOURCE" "$@"
-
 fi
 
 
@@ -76,6 +73,9 @@ if [ "$1" = 'odoo' ]; then
     mkdir -p "$ODOO_LOG_DIR"
 	chown -R "$(id -u)" "$ODOO_LOG_DIR" 2>/dev/null || :
 	chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :
+
+    exec service odoo restart
+    exec gosu odoo "$BASH_SOURCE" "$@"
 
     
 fi
