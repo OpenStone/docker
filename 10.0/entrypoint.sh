@@ -79,8 +79,8 @@ if [ "$1" = 'odoo' ]; then
     
 fi
 
-exec service odoo restart
-exec gosu odoo "$BASH_SOURCE" "$@"
+# exec service odoo restart
+# exec gosu odoo "$BASH_SOURCE" "$@"
 
 
 case "$1" in
