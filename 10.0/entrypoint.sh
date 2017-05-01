@@ -74,11 +74,13 @@ if [ "$1" = 'odoo' ]; then
 	chown -R "$(id -u)" "$ODOO_LOG_DIR" 2>/dev/null || :
 	chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :
 
-    exec service odoo restart
-    exec gosu odoo "$BASH_SOURCE" "$@"
-
+    # exec service odoo restart
+    # exec gosu odoo "$BASH_SOURCE" "$@"
     
 fi
+
+exec service odoo restart
+exec gosu odoo "$BASH_SOURCE" "$@"
 
 
 case "$1" in
