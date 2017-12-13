@@ -61,7 +61,8 @@ RUN set -x; \
         && apt-get -y install -f --no-install-recommends \
         && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false npm \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb \
-        && pip install psycogreen==1.0
+        && pip install psycogreen==1.0 \
+        && pip install mammoth==1.3.3
 
 # Install Odoo
 ENV ODOO_VERSION 10.0
@@ -74,7 +75,7 @@ RUN set -x; \
         && apt-get -y install -f --no-install-recommends \
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
-
+COPY ./simsun.ttc /usr/share/fonts
 
 RUN usermod -u 888 odoo
 RUN id -u odoo

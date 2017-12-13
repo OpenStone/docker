@@ -51,36 +51,38 @@ if [ "$1" = 'odoo' ] && [ "$(id -u)" = '0' ]; then
 	chown -R odoo "$ODOO_LOG_DIR"
 	chmod 0750 "$ODOO_LOG_DIR"
 
+    # exec service odoo restart
+    exec gosu odoo "$BASH_SOURCE" "$@"
+
 fi
 
+#if [test ! -e /etc/odoo/odoo.conf]; then
+#    #cp ./odoo.conf /etc/odoo/odoo.conf
+#    #chown odoo /etc/odoo/odoo.conf
+#fi
 
 if [ "$1" = 'odoo' ]; then
 	mkdir -p "$ODOO_DATA_DIR"
-	chown -R "$(id -u)" "$ODOO_DATA_DIR" 2>/dev/null || :
+	chown -R "$(id -u odoo)" "$ODOO_DATA_DIR" 2>/dev/null || :
 	chmod 0750 "$ODOO_DATA_DIR" 2>/dev/null || :
 
     mkdir -p "$ODOO_CONFIGURATION_DIR"
-	chown -R "$(id -u)" "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
+	chown -R "$(id -u odoo)" "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
 	chmod 0750 "$ODOO_CONFIGURATION_DIR" 2>/dev/null || :
 
-	chown -R "$(id -u)" "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
+	chown -R "$(id -u odoo)" "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
 	chmod 0640 "$ODOO_CONFIGURATION_FILE" 2>/dev/null || :
 
     mkdir -p "$ODOO_EXTRA_ADDONS"
-	chown -R "$(id -u)" "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
+	chown -R "$(id -u odoo)" "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
 	chmod 0750 "$ODOO_EXTRA_ADDONS" 2>/dev/null || :
 
     mkdir -p "$ODOO_LOG_DIR"
-	chown -R "$(id -u)" "$ODOO_LOG_DIR" 2>/dev/null || :
+	chown -R "$(id -u odoo)" "$ODOO_LOG_DIR" 2>/dev/null || :
 	chmod 0750 "$ODOO_LOG_DIR" 2>/dev/null || :
 
-    # exec service odoo restart
-    # exec gosu odoo "$BASH_SOURCE" "$@"
     
 fi
-
-# exec service odoo restart
-# exec gosu odoo "$BASH_SOURCE" "$@"
 
 
 case "$1" in
